@@ -86,4 +86,14 @@ router.put("/cartFalse/:id", (req,res) => {
        
        });
 
+       // route put pour passer booking à true si cart = true
+router.put("/booking/:id", (req, res) => {
+    Travel.updateOne(
+        { _id: req.params.id},
+        { booking: true }
+       ).then((data) => {
+        res.json({ travelBooked: data });
+        });
+    })
+
 module.exports = router;
