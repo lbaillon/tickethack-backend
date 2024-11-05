@@ -50,4 +50,40 @@ router.put("/booking/:id", (req, res) => {
 
 
 
+
+// route put pour passer booking à true si cart = true
+router.put("/booking/:id", (req, res) => {
+    Travel.updateOne(
+        { _id: req.params.id},
+        { booking: true }
+       ).then((data) => {
+        res.json({ travelBooked: data });
+        });
+    })
+
+
+
+
+// route pour la cart True
+router.put("/cartTrue/:id", (req,res) => {
+    Travel.updateOne(
+        { _id: req.params.id},
+        { cart: true }
+       ).then((data) => {
+        res.json({ travelInCart: data });
+        });
+       
+       });
+
+// route pour la cart False
+router.put("/cartFalse/:id", (req,res) => {
+    Travel.updateOne(
+        { _id: req.params.id},
+        { cart: false }
+       ).then((data) => {
+        res.json({ travelInCart: data });
+        });
+       
+       });
+
 module.exports = router;
