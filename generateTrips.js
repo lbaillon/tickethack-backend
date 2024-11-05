@@ -22,7 +22,9 @@ const trips = [];
 for (let i = 0; i < NB_TRIPS; i++) {
   const [departure, arrival] = randomElement(CITIES, 2);
   const date = momentRandom(moment().add(2, 'weeks'), moment());
-  trips.push({ departure, arrival, date: { $date: date.toDate() }, price: randomNumber(MIN_PRICE, MAX_PRICE) });
+  const cart = false;
+  const booking = false;
+  trips.push({ departure, arrival, date: { $date: date.toDate() }, price: randomNumber(MIN_PRICE, MAX_PRICE), cart, booking });
 }
 
 const sortedTrips = trips.sort((a, b) => a.date.$date - b.date.$date);
