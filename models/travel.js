@@ -5,6 +5,7 @@ const travelSchema = mongoose.Schema({
     date: String,
     price: Number,
     cart: Boolean,
+    booking: Boolean,
    });
    
    const Travel = mongoose.model('travel', travelSchema);
