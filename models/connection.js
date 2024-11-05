@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 const connectionString = 'mongodb+srv://AmandineP:Capsule!0906$@cluster0.cpkmy.mongodb.net/tickethack';
