@@ -36,4 +36,26 @@ router.get("/", (req, res) => {
   });
 });
 
+// route pour la cart True
+router.put("/cartTrue/:id", (req,res) => {
+    Travel.updateOne(
+        { _id: req.params.id},
+        { cart: true }
+       ).then((data) => {
+        res.json({ travelInCart: data });
+        });
+       
+       });
+
+// route pour la cart False
+router.put("/cartFalse/:id", (req,res) => {
+    Travel.updateOne(
+        { _id: req.params.id},
+        { cart: false }
+       ).then((data) => {
+        res.json({ travelInCart: data });
+        });
+       
+       });
+
 module.exports = router;
