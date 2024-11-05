@@ -1,19 +1,29 @@
+const mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
-//const fetch = require('node-fetch');cd
+//const fetch = require('node-fetch');
 const Travel = require("../models/travel")
 
-
-router.post('/', (req, res) => {
-    const newTravel = new Travel ({
-      departure: req.body.departure,
-      arrival: req.body.arrival,
-      date: req.body.date,
-      price: req.body.price,
-      cart: req.body.cart,
+// route Get pour récupérer tout les voyages dispo pour un départ et une arrivée donnée en fonction de la date
+router.get("/travel/:departure/:arrival/:date", (req,res) => {
+    const travelDep= req.params.departure
+    const travelArr = req.params.arrival
+    const dateDep = req.params.date
+    Travel.find({
+        departure:  { $regex: new RegExp(travelDep, 'i') },
+        arrival: { $regex: new RegExp(travelArr, 'i') },
+        date: dateDep
+    }).then(tarvelsFound => {
+        if (tarvelsFound){
+            res.json({result: true, travels: tarvelsFound})
+        }else {
+            res.json({result: false, error: "No trip found."})
+        }
     })
-    newTravel.save().then(data => res.json({ allTravels: [data] }));
-    });
+})
 
+router.get("/", (req,res) => {
+    Travel.find().then(data => {res.json({travels : data})})
+})
 
 module.exports = router;
