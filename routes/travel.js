@@ -10,7 +10,9 @@ var moment = require("moment");
 router.get("/:departure/:arrival/:date", (req, res) => {
   const travelDep = req.params.departure;
   const travelArr = req.params.arrival;
-  const travelDate = moment(req.params.date).format("YYYY-MM-DD"); //formatage de la date passée en paramètre
+  const travelDate = req.params.date;
+  console.log(travelDep, travelArr, travelDate)
+  //const travelDate = moment(req.params.date).format("YYYY-MM-DD"); //formatage de la date passée en paramètre
   Travel.find({
     //pour ressortir un tableau de tout les travels avec départ et arrivée passé en paramètre
     departure: { $regex: new RegExp(travelDep, "i") },
@@ -37,16 +39,6 @@ router.get("/", (req, res) => {
 });
 
 
-// route put pour passer booking à true si cart = true
-router.put("/booking/:id", (req, res) => {
-    Travel.updateOne(
-        { _id: req.params.id},
-        { booking: true }
-       ).then((data) => {
-        res.json({ travelBooked: data });
-        });
-    })
-
 
 // route pour la cart True
 router.put("/cartTrue/:id", (req,res) => {
@@ -70,6 +62,16 @@ router.put("/cartFalse/:id", (req,res) => {
        
        });
 
+       
+// route put pour passer booking à true si cart = true
+router.put("/booking/:id", (req, res) => {
+    Travel.updateOne(
+        { _id: req.params.id},
+        { booking: true }
+       ).then((data) => {
+        res.json({ travelBooked: data });
+        });
+    })
 
 
 module.exports = router;
